@@ -1,0 +1,263 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Schrödinger's Box</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Caveat:wght@400;600&family=Great+Vibes&family=JetBrains+Mono:wght@400;600&family=Quicksand:wght@400;500;600&family=Press+Start+2P&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div class="page">
+      <header class="title-bar">
+        <h1 class="game-title">Schrödinger's Box</h1>
+        <p class="tagline">
+          <span data-i18n="taglinePrefix">Say something, then pick a path:</span>
+          <span class="tag-wit" data-i18n="modeWit">Wit</span>
+          <span data-i18n="taglineMiddle">for warmth with a clever lift, or</span>
+          <span class="tag-wisdom" data-i18n="modeWisdom">Wisdom</span>
+          <span data-i18n="taglineSuffix">for a sharper truth.</span>
+        </p>
+      </header>
+
+      <main class="console">
+        <section class="panel panel--input" aria-label="Input">
+          <div class="bezel">
+            <div class="screen">
+              <video
+                class="screen__video"
+                autoplay
+                muted
+                playsinline
+                poster="/assets/screen-fluid.png"
+                aria-hidden="true"
+              >
+                <source src="/assets/Acid_vision.mp4" type="video/mp4" />
+              </video>
+              <div class="screen__glow"></div>
+              <div class="screen-lang-picker">
+                <label class="sr-only" for="languageSelect">Language</label>
+                <select id="languageSelect" class="screen-lang-select" aria-label="Language">
+                  <option value="IT">IT</option>
+                  <option value="EN" selected>EN</option>
+                  <option value="CN">CN</option>
+                  <option value="FR">FR</option>
+                  <option value="DE">DE</option>
+                </select>
+              </div>
+              <p class="screen-mood-question" id="screenMoodQuestion" aria-live="polite"></p>
+              <label class="sr-only" for="userInput">Your message to the machine</label>
+              <div class="input-shell">
+                <textarea
+                  id="userInput"
+                  rows="4"
+                  maxlength="1200"
+                  placeholder="I'm listening…"
+                  data-i18n-placeholder="inputPlaceholder"
+                  autocomplete="off"
+                ></textarea>
+                <div
+                  id="voiceLevelWave"
+                  class="voice-level-wave"
+                  aria-hidden="true"
+                ></div>
+                <button
+                  type="button"
+                  id="voiceInputBtn"
+                  class="voice-input-btn"
+                  aria-label="Voice input"
+                  title="Voice input"
+                >
+                  <img
+                    src="/assets/microphone.png"
+                    alt=""
+                    aria-hidden="true"
+                    class="voice-input-btn__icon"
+                    decoding="async"
+                  />
+                </button>
+              </div>
+              <p class="screen-hint" id="screenHint">Press a button—the box only speaks after you choose.</p>
+
+              <div
+                class="human-bubble-overlay"
+                id="humanBubbleOverlay"
+                aria-hidden="true"
+              >
+                <div class="human-bubble-row">
+                  <button
+                    type="button"
+                    class="human-bubble human-bubble--read"
+                    data-human-choice="read"
+                  >
+                    <span class="human-bubble__text" id="humanReadText">Want to read someone else's story?</span>
+                  </button>
+                  <button
+                    type="button"
+                    class="human-bubble human-bubble--write"
+                    data-human-choice="write"
+                  >
+                    <span class="human-bubble__text" id="humanWriteText">Want to leave a message for someone else?</span>
+                  </button>
+                </div>
+                <button
+                  type="button"
+                  class="human-bubble-close"
+                  id="humanBubbleClose"
+                  aria-label="Close"
+                >
+                  <span class="human-bubble-close__x" aria-hidden="true">×</span>
+                </button>
+
+                <div
+                  class="story-notes-overlay"
+                  id="storyNotesOverlay"
+                  aria-hidden="true"
+                >
+                  <div class="story-notes-scatter" id="storyNotesScatter"></div>
+                  <button
+                    type="button"
+                    class="story-notes-done"
+                    id="storyNotesDone"
+                    aria-label="Back"
+                  >
+                    <span class="story-notes-done__label" id="storyNotesBackLabel">Back</span>
+                  </button>
+                </div>
+
+                <div
+                  class="leave-message-compose"
+                  id="leaveMessageCompose"
+                  aria-hidden="true"
+                >
+                  <button
+                    type="button"
+                    class="leave-message-compose__close"
+                    id="leaveMessageComposeClose"
+                    aria-label="Close"
+                  >
+                    <span class="leave-message-compose__close-x" aria-hidden="true">×</span>
+                  </button>
+                  <div class="leave-message-compose__inner">
+                    <div class="leave-message-compose__paper">
+                      <label class="sr-only" for="leaveMessageInput">Message for someone else</label>
+                      <textarea
+                        id="leaveMessageInput"
+                        class="leave-message-compose__input"
+                        rows="9"
+                        maxlength="1200"
+                        placeholder="Write something for a stranger…"
+                        data-i18n-placeholder="leaveMessagePlaceholder"
+                        autocomplete="off"
+                      ></textarea>
+                    </div>
+                    <button
+                      type="button"
+                      class="leave-message-compose__post"
+                      id="leaveMessagePost"
+                    >
+                      <span id="leaveMessagePostLabel">POST</span>
+                    </button>
+                  </div>
+                </div>
+
+                <p
+                  class="human-post-success"
+                  id="humanPostSuccess"
+                  role="status"
+                  aria-live="polite"
+                  aria-hidden="true"
+                ></p>
+              </div>
+            </div>
+          </div>
+
+          <div class="controls">
+            <div class="speaker-grille" aria-hidden="true"></div>
+            <button type="button" class="key key--wit" id="btnWit" data-mode="wit">
+              <span class="key__led" aria-hidden="true"></span>
+              <span class="key__label" id="btnWitLabel">Wit</span>
+            </button>
+            <button type="button" class="key key--wisdom" id="btnWisdom" data-mode="wisdom">
+              <span class="key__label" id="btnWisdomLabel">Wisdom</span>
+              <span class="key__led key__led--right" aria-hidden="true"></span>
+            </button>
+            <button
+              type="button"
+              class="key key--human"
+              id="btnHuman"
+              data-mode="human"
+              aria-label="Human"
+            >
+              <img
+                class="key__fingerprint"
+                src="/assets/fingerprint.png"
+                alt=""
+                width="40"
+                height="40"
+                decoding="async"
+              />
+            </button>
+          </div>
+        </section>
+
+        <section class="panel panel--output" aria-label="Receipt output">
+          <div class="printer-frame">
+            <div class="printer-label" id="printerLabel">▼ RECEIPT OUTPUT ▼</div>
+            <div class="printer-slot" id="printerSlot">
+              <div class="receipt-stack" id="receiptStack" aria-live="polite">
+                <article class="receipt receipt--placeholder" id="receiptPlaceholder">
+                  <div class="receipt__inner">
+                    <p class="receipt__brand receipt__brand--matrix">Schrödinger's</p>
+                    <p class="receipt__brand receipt__brand--script">Box</p>
+                    <p class="receipt__meta"></p>
+                    <hr class="receipt__rule" />
+                    <p class="receipt__section" id="placeholderYouSaid">YOU SAID:</p>
+                    <p class="receipt__body" id="placeholderWaiting">(Waiting for your first line.)</p>
+                    <p class="receipt__section" id="placeholderResponse">RESPONSE [ — ]:</p>
+                    <p class="receipt__body receipt__reply">——</p>
+                    <hr class="receipt__rule" />
+                    <p class="receipt__stamp"></p>
+                    <p class="receipt__footer" id="placeholderFooter">THANK YOU FOR USING SCHRODINGER'S BOX</p>
+                  </div>
+                  <div class="receipt__tear" aria-hidden="true"></div>
+                </article>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <p class="status" id="status" role="status"></p>
+    </div>
+    <template id="receipt-template">
+      <article class="receipt">
+        <div class="receipt__inner">
+          <p class="receipt__brand receipt__brand--matrix">Schrödinger's</p>
+          <p class="receipt__brand receipt__brand--script">Box</p>
+          <p class="receipt__meta" data-part="meta"></p>
+          <hr class="receipt__rule" />
+          <p class="receipt__section" data-part="youLabel">YOU SAID:</p>
+          <p class="receipt__body" data-part="you"></p>
+          <p class="receipt__section" data-part="modeLine"></p>
+          <p class="receipt__body receipt__reply" data-part="reply"></p>
+          <p class="receipt__section receipt__mood-label" data-part="moodLabel" hidden>
+            MOOD (INFERRED):
+          </p>
+          <p class="receipt__body receipt__mood" data-part="mood" hidden></p>
+          <hr class="receipt__rule" />
+          <p class="receipt__stamp" data-part="time"></p>
+          <p class="receipt__footer" data-part="footer">THANK YOU FOR USING SCHRODINGER'S BOX</p>
+        </div>
+        <div class="receipt__tear" aria-hidden="true"></div>
+      </article>
+    </template>
+
+    <script src="app.js" type="module"></script>
+  </body>
+</html>
