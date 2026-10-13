@@ -100,6 +100,12 @@ public/assets/      屏幕视频、麦克风图标、打印音效
 
 返回 `text`、`detectedLang`、`translated`。
 
+### 贡献人
+
+- **Wang Yining（王一宁）**：主程序 & UI页面设计
+- **Rohini Jayashankar、Srujan Ramakant Unavane**：产品设计
+- **Lu Sijia（芦思佳）**：项目使用场景的AI图片与视频生成
+
 ---
 
 ## English
@@ -201,3 +207,9 @@ The response includes `mood`, `reply`, `userLine`, and `usedMock` (whether a loc
 ```
 
 The response includes `text`, `detectedLang`, and `translated`.
+
+### Contributors
+
+- **Wang Yining (王一宁)**: Programing & UI Design
+- **Rohini Jayashankar, Srujan Ramakant Unavane**: Product Design
+- **Lu Sijia (芦思佳)**: AI image and video generation for the use cases
